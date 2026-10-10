@@ -263,7 +263,46 @@ def main():
         # Transient network/blocking errors shouldn't crash the workflow.
         print(f"[{label}] fetch failed: {exc}")
         return 0
+    # Track each theatre independently when venue_codes is configured.
+    if cfg.get("detector") == "bms_date" and cfg.get("venue_codes"):
+        venue_labels = {
+            "PTBK": "Pushpanjali Theatre",
+            "VTGB": "Vijayalakshmi Theatre, Garudachar Palya",
+            "GPGM": "Gopalan Grand Mall Cinemas",
+            "SVYK": "Sri Vinayaka Cinemas 4K, Varthur",
+        }
 
+        date = cfg["requested_date"]
+        previously_seen = set(state.get("venues_seen", []))
+        currently_open = {
+            code for code in cfg["venue_codes"]
+            if f"/{code}/{date}" in page
+        }
+
+        print(f"Theatres currently open: {sorted(currently_open)}")
+
+        for code in sorted(currently_open - previously_seen):
+            theatre = venue_labels.get(code, code)
+            pretty_date = f"{date[6:8]}-{date[4:6]}-{date[0:4]}"
+
+            message = (
+                "🎬 Jailer 2 booking detected!\n\n"
+                f"Theatre: {theatre}\n"
+                f"Date: {pretty_date}\n\n"
+                f"BookMyShow: {cfg['target_url']}"
+            )
+
+            send_telegram(
+                cfg["telegram_bot_token"],
+                cfg["telegram_chat_id"],
+                message,
+            )
+            print(f"Notification sent for {theatre}")
+
+        state["venues_seen"] = sorted(previously_seen | currently_open)
+        state["checked_at"] = int(time.time())
+        save_json(STATE_PATH, state)
+        return 0
     available = is_available(page, cfg)
     print(f"[{label}] available={available} (was {state.get('available')})")
 
