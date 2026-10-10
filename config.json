@@ -3,5 +3,11 @@
   "movie": "Jailer 2",
   "requested_date": "20261015",
   "url_template": "https://in.bookmyshow.com/movies/bengaluru/jailer-2/buytickets/ET00518674/{date}",
-  "min_references": 10
+  "min_references": 10,
+  "venue_codes": [
+    "PTBK",
+    "VTGB",
+    "GPGM",
+    "SVYK"
+  ]
 }
