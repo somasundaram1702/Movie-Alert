@@ -263,6 +263,18 @@ def main():
         # Transient network/blocking errors shouldn't crash the workflow.
         print(f"[{label}] fetch failed: {exc}")
         return 0
+    print("DEBUG: Requested date:", cfg["requested_date"])
+    print("DEBUG: Page length:", len(page))
+
+    for code in cfg.get("venue_codes", []):
+        print(f"DEBUG: {code} appears {page.count(code)} times")
+
+    print(
+       "DEBUG: Requested date appears",
+        page.count(cfg["requested_date"]),
+       "times"
+          )
+    
     # Track each theatre independently when venue_codes is configured.
     if cfg.get("detector") == "bms_date" and cfg.get("venue_codes"):
         venue_labels = {
