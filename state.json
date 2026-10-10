@@ -1,3 +1,7 @@
 {
-  "available": false
+  "available": false,
+  "venues_seen": [
+    "VTGB"
+  ],
+  "checked_at": 1791643862
 }
