@@ -1,3 +1,10 @@
 {
-  "available": false
+  "available": false,
+  "venues_seen": [
+    "CEHR",
+    "LKTH",
+    "SAED",
+    "TDCA"
+  ],
+  "checked_at": 1791645674
 }
