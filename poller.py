@@ -353,6 +353,11 @@ def main():
             )
             print(f"Notification sent for {theatre}")
 
+            send_email_notification(
+                subject=f"Booking Alert: {cfg.get('movie', 'Movie')} tickets available",
+                body=message,
+            )
+
         state["venues_seen"] = sorted(previously_seen | currently_open)
         state["checked_at"] = int(time.time())
         save_json(STATE_PATH, state)
