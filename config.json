@@ -1,13 +1,10 @@
 {
-  "detector": "bms_date",
-  "movie": "Jailer 2",
-  "requested_date": "20261015",
-  "url_template": "https://in.bookmyshow.com/movies/bengaluru/jailer-2/buytickets/ET00518674/{date}",
-  "min_references": 10,
-  "venue_codes": [
-    "PTBK",
-    "VTGB",
-    "GPGM",
-    "SVYK"
-  ]
+"detector": "bms_date",
+"movie": "Premada Oorali",
+"requested_date": "20261010",
+"url_template": "https://in.bookmyshow.com/movies/bengaluru/premada-oorali/buytickets/ET00412717/{date}",
+"min_references": 10,
+"venue_codes": [
+"VTGB"
+]
 }
