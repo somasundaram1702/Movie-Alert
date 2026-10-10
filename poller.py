@@ -25,48 +25,6 @@ from pathlib import Path
 
 import requests
 
-
-import os
-import smtplib
-from email.message import EmailMessage
-
-
-def send_email_notification(subject, body):
-    """Send a booking alert to all configured email recipients."""
-
-    sender = os.getenv("EMAIL_SENDER", "").strip()
-    app_password = os.getenv("EMAIL_APP_PASSWORD", "").replace(" ", "")
-    recipient_string = os.getenv("EMAIL_RECIPIENT", "")
-
-    recipients = [
-        address.strip()
-        for address in recipient_string.split(",")
-        if address.strip()
-    ]
-
-    # Email is optional. Preserve existing tracker behaviour if unconfigured.
-    if not sender or not app_password or not recipients:
-        print("Email notification skipped: email settings are incomplete.")
-        return False
-
-    message = EmailMessage()
-    message["From"] = sender
-    message["To"] = ", ".join(recipients)
-    message["Subject"] = subject
-    message.set_content(body)
-
-    try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
-            smtp.login(sender, app_password)
-            smtp.send_message(message)
-
-        print(f"Email notification sent to {len(recipients)} recipient(s).")
-        return True
-
-    except Exception as exc:
-        print(f"Email notification failed: {type(exc).__name__}: {exc}")
-        return False
-
 ROOT = Path(__file__).resolve().parent
 CONFIG_PATH = Path(os.environ.get("CONFIG_PATH", ROOT / "config.json"))
 STATE_PATH = Path(os.environ.get("STATE_PATH", ROOT / "state.json"))
@@ -352,11 +310,6 @@ def main():
                 message,
             )
             print(f"Notification sent for {theatre}")
-
-            send_email_notification(
-                subject=f"Booking Alert: {cfg.get('movie', 'Movie')} tickets available",
-                body=message,
-            )
 
         state["venues_seen"] = sorted(previously_seen | currently_open)
         state["checked_at"] = int(time.time())
