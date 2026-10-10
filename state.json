@@ -1,7 +1,13 @@
 {
   "available": false,
   "venues_seen": [
+    "CFBS",
+    "CLGM",
+    "FMFB",
+    "IMCB",
+    "PPNX",
+    "PVER",
     "VTGB"
   ],
-  "checked_at": 1791644500
+  "checked_at": 1791645062
 }
