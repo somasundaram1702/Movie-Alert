@@ -2,6 +2,7 @@
   "available": false,
   "venues_seen": [
     "CEHR",
+    "CFBS",
     "GPGM",
     "LKTH",
     "PTBK",
@@ -10,5 +11,5 @@
     "TDCA",
     "VTGB"
   ],
-  "checked_at": 1791805242
+  "checked_at": 1791805848
 }
